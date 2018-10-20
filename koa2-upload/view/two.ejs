@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+  #app{
+    margin:100px
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <el-upload class="upload-demo" ref="upload" action="/upload" :on-preview="handlePreview" :on-change='onchange' :on-exceed="onexceed" :on-remove="handleRemove" :limit='1' :file-list="fileList" :auto-upload="false">
+  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+</el-upload>
+<h3> 上传完毕请查看 uploads 文件夹</h3>
+  </div>
+</body>
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: function() {
+        return { 
+			    fileList: [],
+          attachment:[]
+		    }
+      },
+	   methods: {
+		submitUpload(...arg) {
+			this.$refs.upload.submit();
+		},
+    onchange(arg){
+     const fileSize=arg.size/ 1024 / 1024 
+     const Format= arg.name.substring(arg.name.lastIndexOf('.')+1)
+      if(Format!=='pdf'){
+         alert('你上传的文件格式不对')
+         this.$refs.upload.clearFiles()
+        return false
+      }
+      if(fileSize>20.5){
+        alert("你上传的文件太大")
+        this.$refs.upload.clearFiles()
+        return false
+      }
+      // this.attachment.push(arg.name)
+      
+    },
+    onexceed(arg){
+      alert('请不要多次上传')
+      // let Format=''
+      // let FormName=''
+      // for(let [value,index] of Object.keys(arg)){
+      //   FormName= arg[value].name
+      //    Format= arg[value].name.substring(arg[value].name.lastIndexOf('.')+1)
+      // }
+      // if(Format!=='pdf'){
+      //    alert('你上传的文件格式不对')
+      //   return false
+      // }
+      // this.attachment.forEach((item,index)=>{
+      //   if(item===FormName){
+      //     alert('不要重复上传')
+      //     return false
+      //   }
+      // })
+    },
+		handleRemove(file, fileList) {
+			console.log(file, fileList);
+		},
+		handlePreview(file) {
+			console.log(file);
+		}
+     }
+    })
+  </script>
+  
+</html>
