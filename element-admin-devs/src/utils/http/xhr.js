@@ -1,62 +1,64 @@
-// HttpUtils.js 文件
-export default class HttpUtils {
-  static get(url) {
-    return new Promise((resolve, reject) => {
-      fetch(url)
-        .then(response => response.json())
-        .then(result => {
-          resolve(result)
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+/**
+ * 将对象转成 a=1&b=2的形式
+ * @param obj 对象
+ */
+function obj2String(obj, arr = [], idx = 0) {
+  for (const item in obj) {
+    arr[idx++] = [item, obj[item]]
   }
-
-  static post(url, data) {
-    return new Promise((resolve, reject) => {
-      fetch(url, {
-        method: 'POST',
-        header: {
-          'Accept': 'application/json',
-          'Content-Tyoe': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => response.json())
-        .then(result => {
-          resolve(result)
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
-  }
+  return new URLSearchParams(arr).toString()
 }
 
-// GET
-// HttpUtils.get(url)
-//   .then(result => {
-//     this.setState({
-//       result: JSON.stringify(result)
-//     })
-//   })
-//   .catch(error => {
-//     this.setState({
-//       result: 'err+' + JSON.stringify(error)
-//     })
-//   })
+/**
+ * 真正的请求
+ * @param url 请求地址
+ * @param options 请求参数
+ * @param method 请求方式
+ */
+function commonFetcdh(url, options, method = 'GET') {
+  const searchStr = obj2String(options)
+  let initObj = {}
+  if (method === 'GET') { // 如果是GET请求，拼接url
+    url += '?' + searchStr
+    initObj = {
+      method: method,
+      credentials: 'include'
+    }
+  } else {
+    initObj = {
+      method: method,
+      credentials: 'include',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }),
+      body: searchStr
+    }
+  }
+  fetch(url, initObj).then((res) => {
+    return res.json()
+  }).then((res) => {
+    return res
+  })
+}
 
-// POST
-// HttpUtils.post(url, data)
-//   .then(result => {
-//     this.setState({
-//       result: JSON.stringify(result)
-//     })
-//   })
-//   .catch(error => {
-//     this.setState({
-//       result: 'err + ' + JSON.stringify(error)
-//     })
-//   })
+/**
+ * GET请求
+ * @param url 请求地址
+ * @param options 请求参数
+ */
+function GET(url, options) {
+  return commonFetcdh(url, options, 'GET')
+}
 
+/**
+ * POST请求
+ * @param url 请求地址
+ * @param options 请求参数
+ */
+function POST(url, options) {
+  return commonFetcdh(url, options, 'POST')
+}
+
+GET('https://www.baidu.com/search/error.html', { a: 1, b: 2 })
+POST('https://www.baidu.com/search/error.html', { a: 1, b: 2 })
