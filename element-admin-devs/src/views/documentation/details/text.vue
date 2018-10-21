@@ -9,9 +9,7 @@
 
     <el-form ref="numberValidateForm" :model="numberValidateForm" label-width="100px" class="demo-ruleForm">
       <el-form-item
-        :rules="[
-          { required: true, message: '请输入文字',trigger: 'change'},
-          { required: true, message: '请输入文字不能超出10个字', min: 0,max: 10,trigger: 'change'} ]"
+        rules="rules"
         label="age"
         prop="age">
         <el-input v-model.number="numberValidateForm.age" />
@@ -35,6 +33,9 @@ export default {
   name: 'NumberFrom',
   data() {
     return {
+      rules: [
+        { required: true, message: '请输入文字', trigger: 'change' },
+        { required: true, message: '请输入文字不能超出10个字', min: 0, max: 10, trigger: 'change' }],
       numberValidateForm: {
         age: ''
       }

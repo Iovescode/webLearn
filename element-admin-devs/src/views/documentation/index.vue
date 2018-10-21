@@ -4,9 +4,10 @@
     <textFrom v-if="isShow" @close-dolg="closeDolg"/>
     <el-row :gutter="20">
       <el-col :span="12" :offset="6">
-        <el-button type="" @click="switchTo">点击</el-button>
+        <el-button type="" @click="switchTo">点击 </el-button>
       </el-col>
     </el-row>
+    <hr> 自定义校验
 
   </div>
 </template>
