@@ -3,7 +3,10 @@
     <el-col :span="12" :offset="6">
       <el-form ref="numberValidateForm" :model="numberValidateForm" label-width="100px" class="demo-ruleForm">
         <el-form-item
-          rules="rules"
+          :rules="[
+            { required: true, message: '请输入数字', trigger: 'blur' },
+            { message: '请输入两位小数点的数字', pattern: /^\d+(\.\d{0,2})$/, trigger: 'blur' },
+            { type: 'number', message: '请输入数字范围', min: 0, max: 1000, trigger: 'blur' }]"
           label="age"
           prop="age">
           <el-input v-model.number="numberValidateForm.age" type="number" auto-complete="off"/>
@@ -21,12 +24,9 @@
 <script>
 export default {
   name: 'NumberFrom',
+
   data() {
     return {
-      rules: [
-        { required: true, message: '请输入数字', trigger: 'blur' },
-        { message: '请输入两位小数点的数字', pattern: /^\d+(\.\d{0,2})$/, trigger: 'blur' },
-        { type: 'number', message: '请输入数字范围', min: 0, max: 1000, trigger: 'blur' }],
       numberValidateForm: {
         age: ''
       }

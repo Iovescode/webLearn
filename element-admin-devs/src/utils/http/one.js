@@ -1,9 +1,9 @@
 
 export default class HttpUtils {
-  commonFetcdh(url, options, method = 'GET') {
+  static commonFetcdh(url, options, method = 'GET') {
     const searchStr = this.obj2String(options)
     let initObj = {}
-    if (method === 'GET') {
+    if (method === 'GET') { // 如果是GET请求，拼接url
       url += '?' + searchStr
       initObj = {
         method: method,
@@ -42,6 +42,33 @@ export default class HttpUtils {
     return this.commonFetcdh(url, options, 'POST')
   }
 }
-// console.log(HttpUtils)
-// HttpUtils.POST('https://www.baidu.com/search/error.html', { a: 1, b: 2 })
+
+HttpUtils.GET('https://www.baidu.com/search/error.html', { a: 1, b: 2 })
+HttpUtils.POST('https://www.baidu.com/search/error.html', { a: 1, b: 2 })
+
+// GET
+// HttpUtils.get(url)
+//   .then(result => {
+//     this.setState({
+//       result: JSON.stringify(result)
+//     })
+//   })
+//   .catch(error => {
+//     this.setState({
+//       result: 'err+' + JSON.stringify(error)
+//     })
+//   })
+
+// POST
+// HttpUtils.post(url, data)
+//   .then(result => {
+//     this.setState({
+//       result: JSON.stringify(result)
+//     })
+//   })
+//   .catch(error => {
+//     this.setState({
+//       result: 'err + ' + JSON.stringify(error)
+//     })
+//   })
 

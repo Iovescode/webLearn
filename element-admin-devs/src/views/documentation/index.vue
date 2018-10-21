@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 import numberFrom from './details/number'
 import textFrom from './details/text'
 export default {
@@ -22,6 +23,7 @@ export default {
   },
   data() {
     return {
+      ruls: [],
       isShow: false
     }
   },
@@ -32,6 +34,7 @@ export default {
     },
     switchTo() {
       this.isShow = !this.isShow
+      // console.log(this.xhrs.GET('https://www.baidu.com/search/error.html', { a: 1, b: 2 }))
     }
   }
 }
