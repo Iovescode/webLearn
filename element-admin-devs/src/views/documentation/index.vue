@@ -8,7 +8,8 @@
       </el-col>
     </el-row>
     <hr> 自定义校验
-
+    <service-dialog :show.sync="show"/>
+    <el-button @click="open">click</el-button>
   </div>
 </template>
 
@@ -16,19 +17,25 @@
 
 import numberFrom from './details/number'
 import textFrom from './details/text'
+import serviceDialog from './details/Diglo'
 export default {
   components: {
     numberFrom,
-    textFrom
+    textFrom,
+    serviceDialog
   },
   data() {
     return {
       ruls: [],
-      isShow: false
+      isShow: false,
+      show: false
     }
   },
 
   methods: {
+    open() {
+      this.show = true
+    },
     closeDolg() {
       this.isShow = false
     },
