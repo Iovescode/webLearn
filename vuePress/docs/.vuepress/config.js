@@ -73,8 +73,8 @@ module.exports = {
           title: 'src--->utils',
           collapsable: true,
           children: [
-            'utils/test4',
-            'utils/test5'
+            'utils/test1',
+            'utils/test2'
           ]
         },
         {
