@@ -9,7 +9,7 @@ module.exports = {
     nav: [
       { text: '主页', link: '/' }, // 导航条
       { text: '新手文档', link: '/baseComponents/' },
-      { text: '项目代码', link: '/knowledge/' },
+      { text: '项目代码', link: '/code/' },
       {
         text: 'github',
         // 这里是下拉列表展现形式。
@@ -51,24 +51,30 @@ module.exports = {
           ]
         }
       ],
-      '/knowledge/': [
+      '/code/': [
         {
-          title: 'ijx为例',
-          collapsable: false,
+          title: 'ijy为例',
+          collapsable: true,
           children: [
-            'base/test1',
+            'config/test1',
+            'config/test2',
+            'config/test3'
           ]
         },
         {
-          title: 'JS知识库',
-          collapsable: false,
+          title: 'store',
+          collapsable: true,
           children: [
+            'store/test1',
+            'store/test2'
           ]
         },
         {
-          title: 'node知识库',
-          collapsable: false,
+          title: 'src--->utils',
+          collapsable: true,
           children: [
+            'utils/test4',
+            'utils/test5'
           ]
         },
         {
