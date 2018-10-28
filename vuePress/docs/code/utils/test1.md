@@ -10,21 +10,21 @@ import localApi from '../../api/localApi'
 import romoteApi from '../../api/remoteApi'
 import { deleteEmptyProperty, envFunc } from './utils'
 ```
-store 状态库
+1.store 状态库
 
-getToken 获取Token
+2.getToken 获取Token
 
-Message 全局处理后端message
+3.Message 全局处理后端message
 
-db 缓存存储
+4.db 缓存存储
 
-server db库常用api
+5.server db库常用api
 
-CacheIndex 缓存处理
+6.CacheIndex 缓存处理
 
-deleteEmptyProperty 处理value 为空并删除key
+7.deleteEmptyProperty 处理value 为空并删除key
 
-envFunc 匹配接口 （一般config里面default.js 配置出错在这里查看的到）
+8.envFunc 匹配接口 （一般config里面default.js 配置出错在这里查看的到）
 
 ```
 export async function req(config) {
@@ -32,14 +32,24 @@ export async function req(config) {
     config.headers['Apiver'] = sessionStorage.getItem('hf.resolver.apiVer')
   }
   // Do something before request is sent
-  // 过滤接口的非法使用
+  // 过滤接口的非法使用  
+  ```
+  ```
   if (/[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/.test(config.url)) {
     throw new Error('跨域请先设置白名单在 /utils/http/env.js,当前接口' + config.url + '不可用')
   }
-  // 设置平台
+  ```
+
+  1.设置不是本平台的api 接口调用
+
+  ```
   if (!config.remote) {
     config.remote = 'ijy'
   }
+  ```
+
+ 2.设置平台 指定远程api key 值
+ ```
   // 设置远程访问url
   if (config.remote) {
     if (romoteApi[config.remote][`${config.method}@${config.url}`]) {
@@ -56,7 +66,12 @@ export async function req(config) {
       config.url = localApi[config.method + '@' + config.url]
     }
   }
+```
+1.判断是否http设置remote值访问 默认走本地接口
 
+2.envFunc 匹配接口 （一般config里面default.js 配置出错在这里查看的到）
+
+```
   // 添加认证
   if (store.getters.token && getToken('auth_x')) {
     config.headers['Authorization'] = 'Bearer ' + store.getters.token // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
@@ -64,9 +79,16 @@ export async function req(config) {
     if (config.remote === 'izj') {
       config.headers['ijw-platform'] = store.getters.ijw_platform
     }
+```
+1.http 发送带token 验证针对不同平台加验证
 
+```
     // 初始化
     const hasUrl = await server.where(config)
+```
+查寻本地db是否缓存url
+
+```    
     let token_url_statue = store.state[`${config.method}@${config.url}`]
     if (token_url_statue === undefined) {
       token_url_statue = store.state[`${config.method}@${config.url}`] = {
@@ -82,7 +104,10 @@ export async function req(config) {
         filterUrl: config.filterUrl
       }
     }
+``` 
+1.不存在 url 重新赋值http 参数
 
+``` 
     // 缓存请求参数 仅 get
     if (config.method === 'get') {
       token_url_statue.cacheParams = config.params ? config.params : {}
@@ -104,7 +129,24 @@ export async function req(config) {
         throw new Error(`${config.url}接口,操作太过频繁请稍后重试！`)
       }
     }
+``` 
+1.设置接口频繁调用（接口频繁调用时间大于1秒）
 
+2.接口频繁状态未改变怎么处理 （请思考）
+
+3.可配置跳过接口频繁
+
+ 下面是案例
+
+``` 
+ this.$http.get(this.secondListUrl, {
+        params: { firstLevelDir: row ? row.id : this.ruleForm.secondLevelDir },
+        isFilterUrl: true
+      }).then(res => {})
+``` 
+可以尝试是下post 怎么用？
+
+``` 
     // 对于参数过滤，但是排除 ISURLFILTER 属性的接口
     if ((config.params || config.data) && !config.filterUrl) {
       const data = config.params ? config.params : config.data
@@ -137,7 +179,12 @@ export async function req(config) {
         config.data = newData
       }
     }
+``` 
+1.克隆请求参数
 
+2.发送Http 时分页处理
+
+``` 
     // 设置缓存是否过期
     if (config.cacheTime && hasUrl) {
       if (!hasUrl.data || new Date().getTime() - hasUrl.setTime >= config.cacheTime * 1000) {
@@ -178,19 +225,32 @@ export async function req(config) {
   return config
 }
 ```
-req 发送接口处理
+1.adapter  什么是适配模式
+
+2.用在这里好吗
+
+3.如果以桥接模式处理设计怎么样
+
 
 
 ```
 export function reqError(error) {
   console.error(error)
 }
+```
+1.发送接口的错误处理
 
+2.有没有建设性的意见，及方案
+
+```
 export async function res(response) {
   // 正常流程处理
   if (!response.config.remote) {
     response.config.url = response.config.url.replace(response.config.baseURL, '')
   }
+```
+1.发送请求时不存在远程baseUrl 代替
+```
   // 获取存储的key
   const token_url_statue = store.state[`${response.config.method}@${response.config.url}`]
   const hasUrl = await server.where(response.config)
@@ -198,10 +258,18 @@ export async function res(response) {
   if (token_url_statue && token_url_statue.disabled) {
     token_url_statue.disabled = false
   }
+```
+1.token_url_statue.disabled = false 这里就是解决接口频繁未翻状态的处理
+
+```
   // 收集错误
   if (response.data && response.data.code !== '0x000000') {
     db.errorDate.put({ windowHref: location.href, url: response.config.url, method: response.config.method, status: response.status, res: response.data, date: new Date().getTime() })
   }
+```
+1.data.code！==0x000000 错误收集并储存db库里
+
+```  
   // 正确返回数据处理
   if (response.data.code === '0x000000') {
     // 更新数据存储
@@ -219,6 +287,12 @@ export async function res(response) {
     deleteEmptyProperty(response.data.data, 'res', response.config.url)
     return response.data
   }
+```  
+1.res 成功后的处理
+
+2.复杂请求如 options 处理（options 状态请求不懂请百度）
+
+```  
   // 错误异常处理
   if (/^0x00[1-7]000$/.test(response.data.code)) {
     if (response.data.message) {
@@ -242,7 +316,12 @@ export async function res(response) {
     return Object.assign(response.data, { data: '' })
   }
 }
+```
+1.常见错误处理
 
+2.前端怎么和后端约定好的规则 （不懂请求教）
+
+```
 export function resError(error) {
   console.error(error)
 }
