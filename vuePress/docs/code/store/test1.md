@@ -142,7 +142,16 @@ mutations 操作
         // const data = response.data
         const userInfo = getToken('user_info')
         if (userInfo) {
+
+```  
+        
+```  
           const userInfoObj = JSON.parse(userInfo)
+
+```
+修改其他登陆 注意传值
+```
+
           commit('SET_NAME', userInfoObj.sessionUser.name)
           commit('SET_SEX', userInfoObj.sessionUser.sex)
           commit('SET_PHONE', userInfoObj.sessionUser.phone)
