@@ -1,9 +1,8 @@
 import axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
-// import deploy from '@/deploy.js'
+
 axios.interceptors.request.use(config => {
-  // 显示loading
   return config
 }, error => {
   return Promise.reject(error)
@@ -17,7 +16,7 @@ axios.interceptors.response.use(response => {
 
 function errorState(response) {
   // 隐藏loading
-  console.log(response)
+  // console.log(response)
   // 如果http状态码正常，则直接返回数据
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     return response
@@ -37,41 +36,36 @@ function successState(res) {
     Message.warning('网络异常')
   }
 }
+
+// let headerConfig=
 const httpServer = (opts, data) => {
   const Public = { // 公共参数
-    'srAppid': ''
+    // 'srAppid': ''
+    'remote': 'izj'
   }
 
-  // const httpDefaultOpts = { // http默认配置
-  //   method: opts.method,
-  //   baseURL: '',
-  //   url: opts.url,
-  //   timeout: 10000,
-  //   params: Object.assign(Public, data),
-  //   data: qs.stringify(Object.assign(Public, data)),
-  //   headers: opts.method === 'get' ? {
-  //     'X-Requested-With': 'XMLHttpRequest',
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json; charset=UTF-8'
-  //   } : {
-  //     'X-Requested-With': 'XMLHttpRequest',
-  //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  //   }
-  // }
-
-  const httpDefaultOpts = function(deploy) {
-    return {
-      method: opts.method,
-      baseURL: deploy.baseURL,
-      url: opts.url,
-      timeout: 10000,
-      params: Object.assign(Public, data),
-      data: qs.stringify(Object.assign(Public, data)),
-      headers: opts.method === 'get' ? deploy.deployGet : deploy.deployPost
+  const httpDefaultOpts = { // http默认配置
+    method: opts.method,
+    baseURL: 'http://dev-api.hfjy.com',
+    url: opts.url,
+    timeout: 10000,
+    params: Object.assign(Public, data),
+    data: qs.stringify(Object.assign(Public, data)),
+    headers: opts.method === 'get' ? {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8'
+    } : {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
   }
+  // if(httpDefaultOpts.params.remote === 'izj') {
+  //   httpDefaultOpts.url = 'www.baidu.com'
+  // }
 
   if (opts.method === 'get') {
+    // console.log(opts)
     delete httpDefaultOpts.data
   } else {
     delete httpDefaultOpts.params
@@ -92,5 +86,4 @@ const httpServer = (opts, data) => {
   })
   return promise
 }
-
 export default httpServer

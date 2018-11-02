@@ -10,6 +10,7 @@
     <hr> 自定义校验
     <service-dialog :show.sync="show"/>
     <el-button @click="open">click</el-button>
+    <el-button @click="sendTo">sendTo</el-button>
   </div>
 </template>
 
@@ -33,6 +34,10 @@ export default {
   },
 
   methods: {
+    sendTo() {
+      console.log()
+      this.xhrs(this.api.getLocation, { 'srChannel': 'h5' }).then((res) => { console.log(res) })
+    },
     open() {
       this.show = true
     },

@@ -1,5 +1,5 @@
 const serviceModule = {
-  getLocation: { url: ' service/location/transfor', method: 'get' }
+  getLocation: { url: '/mock/108/education/course/schedule/teacherListOptions', method: 'get' }
 }
 const ApiSetting = { ...serviceModule }
 

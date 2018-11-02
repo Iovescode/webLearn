@@ -18,7 +18,10 @@ import './icons' // icon
 import './errorLog' // error log
 import './permission' // permission control
 import './mock' // simulation data
-import HttpUtils from '@/utils/http/xhr'
+
+import ApiSetting from '@/utils/xhr/api.js'
+import httpServer from '@/utils/xhr/xhr.js'
+
 import * as filters from './filters' // global filters
 
 Vue.use(Element, {
@@ -26,11 +29,11 @@ Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
-// register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-Vue.prototype.xhrs = new HttpUtils()
+Vue.prototype.api = ApiSetting
+Vue.prototype.xhrs = httpServer
 Vue.config.productionTip = false
 
 new Vue({
