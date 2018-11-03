@@ -1,6 +1,4 @@
-const serviceModule = {
-  getLocation: { url: '/mock/108/education/course/schedule/teacherListOptions', method: 'get' }
+export default {
+  getLocation: { url: '/singlePoetry', method: 'get' }
 }
-const ApiSetting = { ...serviceModule }
 
-export default ApiSetting
