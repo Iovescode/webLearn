@@ -1,4 +1,4 @@
 export default {
-  getLocation: { url: '/singlePoetry', method: 'get' }
+  'get@single': '/singlePoetry'
 }
 

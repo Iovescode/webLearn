@@ -35,7 +35,7 @@ export default {
 
   methods: {
     sendTo() {
-      this.xhrs(this.api.getLocation, { params: { 'srChannel': 'h5' }, 'remote': 'izj' }).then((res) => { console.log(res) })
+      this.xhrs('get@single', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })
     },
     open() {
       this.show = true

@@ -15,36 +15,38 @@ axios.interceptors.response.use(response => {
 })
 
 function errorState(response) {
+  console.log(response)
   // 如果http状态码正常，则直接返回数据
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     return response
     // 如果不需要除了data之外的数据，可以直接 return response.data
   } else {
-    Message.warning('网络异常')
-    throw new Error('接口,操作太过频繁请稍后重试！')
+    Message.warning(response.data.message)
   }
 }
 
 function successState(res) {
+  debugger
   // 统一判断后端返回的错误码
-  if (res.data.errCode === '000002') {
-    Message.warning('网络异常')
-  } else if (res.data.errCode !== '000002' && res.data.errCode !== '000000') {
+  if (res.data.code === 200) {
+    Message.warning(res.data.message)
+  } else if (res.data.code !== '000002' && res.data.code !== '000000') {
     Message.warning('网络异常')
   }
 }
 const httpServer = (opts, data) => {
   const httpDefault = {
-    method: opts.method,
-    url: opts.url,
-    remote: data.remote,
+    baseURL: '',
+    remote: 'api' && data.remote,
     params: data.params,
     data: qs.stringify(data.params),
     headers: opts.method === 'get' ? deploy.opt.deployGet : deploy.opt.deployPost
   }
   const httpDefaultOpts = Object.assign({}, httpDefault, deploy.opt)
-  httpDefaultOpts.baseURL = '' || deploy.mapping(httpDefaultOpts.remote)
-  if (opts.method === 'get') {
+  httpDefaultOpts.method = deploy.mapping(httpDefaultOpts.remote, opts).method
+  httpDefaultOpts.url = deploy.mapping(httpDefaultOpts.remote, opts).url
+
+  if (httpDefaultOpts.method === 'get') {
     delete httpDefaultOpts.data
   } else {
     delete httpDefaultOpts.params
