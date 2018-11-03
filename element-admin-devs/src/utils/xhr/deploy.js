@@ -58,7 +58,8 @@ const deploy = {
     deployGet: {
       'X-Requested-With': 'XMLHttpRequestfffggcjyvyjtfvfytfvfty',
       'Accept': 'application/json',
-      'Content-Type': 'application/json; charset=UTF-8'
+      'Content-Type': 'application/json; charset=UTF-8',
+      'token': '99c29e21933e96fda1dd'
     },
     deployPost: {
       'X-Requested-With': 'XMLHttpRequest',
