@@ -26,7 +26,6 @@ function errorState(response) {
 }
 
 function successState(res) {
-  debugger
   // 统一判断后端返回的错误码
   if (res.data.code === 200) {
     Message.warning(res.data.message)

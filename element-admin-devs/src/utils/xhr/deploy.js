@@ -1,7 +1,7 @@
 import api from './api.js'
 import remote from './remote.js'
 const hostName = [
-  { name: 'localhost', value: 'api.apiopen.top' },
+  { name: 'localhost', value: 'yapi.demo.qunar.com' },
   { name: 'dev-', value: 'dev-izj.hfjy.com' },
   { name: 'test-', value: 'i-izj.hfjy.com' },
   { name: 'i-', value: 'i-izj.hfjy.com' },
@@ -44,8 +44,6 @@ function forapi(e, url) {
           method: item.match(/(\S*)@/)[1],
           url: api[item]
         }
-      } else {
-        throw new Error(`url`)
       }
     }
   }
@@ -68,7 +66,7 @@ const deploy = {
     }
   },
   mapping: function(e, url) {
-    console.log(e, url, 898)
+    // console.log(e, url, 898)
     if (e === 'izj') {
       return forapi('izj', url)
     } else {

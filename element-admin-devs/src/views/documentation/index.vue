@@ -11,6 +11,8 @@
     <service-dialog :show.sync="show"/>
     <el-button @click="open">click</el-button>
     <el-button @click="sendTo">sendTo</el-button>
+    <el-button @click="one">one</el-button>
+    <el-button @click="two">two</el-button>
   </div>
 </template>
 
@@ -35,8 +37,16 @@ export default {
 
   methods: {
     sendTo() {
-      this.xhrs('get@single', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })
+      this.xhrs('get@single', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
     },
+    one() {
+      this.xhrs('get@demooneone', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
+    },
+
+    two() {
+      this.xhrs('get@demoonetwo', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
+    },
+
     open() {
       this.show = true
     },
