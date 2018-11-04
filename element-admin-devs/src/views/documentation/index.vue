@@ -37,14 +37,14 @@ export default {
 
   methods: {
     sendTo() {
-      this.xhrs('get@single', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
+      this.xhrs('get@searchMusic', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })
     },
     one() {
-      this.xhrs('get@demooneone', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
+      this.xhrs('get@recommendPoetry', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })
     },
 
     two() {
-      this.xhrs('get@demoonetwo', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
+      this.xhrs('post@singlePoetry', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })
     },
 
     open() {

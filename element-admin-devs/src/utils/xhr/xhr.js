@@ -1,6 +1,5 @@
 import axios from 'axios'
 import qs from 'qs'
-import { Message } from 'element-ui'
 import deploy from './deploy.js'
 axios.interceptors.request.use(config => {
   return config
@@ -14,25 +13,6 @@ axios.interceptors.response.use(response => {
   return Promise.resolve(error.response)
 })
 
-function errorState(response) {
-  console.log(response)
-  // 如果http状态码正常，则直接返回数据
-  if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-    return response
-    // 如果不需要除了data之外的数据，可以直接 return response.data
-  } else {
-    Message.warning(response.data.message)
-  }
-}
-
-function successState(res) {
-  // 统一判断后端返回的错误码
-  if (res.data.code === 200) {
-    Message.warning(res.data.message)
-  } else if (res.data.code !== '000002' && res.data.code !== '000000') {
-    Message.warning('网络异常')
-  }
-}
 const httpServer = (opts, data) => {
   const httpDefault = {
     baseURL: '',
@@ -54,12 +34,12 @@ const httpServer = (opts, data) => {
   const promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
-        successState(res)
+        deploy.successState(res)
         resolve(res)
       }
     ).catch(
       (response) => {
-        errorState(response)
+        deploy.errorState(response)
         reject(response)
       }
     )

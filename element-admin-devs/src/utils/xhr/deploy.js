@@ -1,26 +1,16 @@
+
+import config from './config.js'
 import api from './api.js'
 import remote from './remote.js'
-const hostName = [
-  { name: 'localhost', value: 'yapi.demo.qunar.com' },
-  { name: 'dev-', value: 'dev-izj.hfjy.com' },
-  { name: 'test-', value: 'i-izj.hfjy.com' },
-  { name: 'i-', value: 'i-izj.hfjy.com' },
-  { name: 'offline-', value: 'offline-izj.hfjy.com' },
-  { name: 'temp-', value: 'temp-ijx.hfjy.com' },
-  { name: 'izj.', value: 'izj.hfjy.com' }
-]
-// const remote = ['ijx', 'ijy', 'ijw']
-// const hostname = window.location.hostname.toString()
+import { Message } from 'element-ui'
 let baseURL
-const hostnames = function() {
-  hostName.map((item, index) => {
-    if (window.location.hostname.includes(`${item.name}`)) {
+(() => {
+  config.hostName.map((item, index) => {
+    if (window.location.hostname.includes(item.name)) {
       baseURL = 'http://' + item.value
     }
   })
-}
-hostnames()
-
+})()
 function forapi(e, url) {
   if (e) {
     for (const item in remote) {
@@ -31,8 +21,6 @@ function forapi(e, url) {
               method: key.match(/(\S*)@/)[1],
               url: remote[item][key]
             }
-          } else {
-            throw new Error(`请把${remote[item][key]}放入romoteApi`)
           }
         }
       }
@@ -48,16 +36,13 @@ function forapi(e, url) {
     }
   }
 }
-
 const deploy = {
-  // http默认配置
   opt: {
     baseURL: '' || baseURL,
-    // remote: 'api',
     timeout: 10000,
     deployGet: {
       'X-Requested-With': 'XMLHttpRequestfffggcjyvyjtfvfytfvfty',
-      'Accept': 'application/json',
+      'Accept': '*/*',
       'Content-Type': 'application/json; charset=UTF-8',
       'token': '99c29e21933e96fda1dd'
     },
@@ -67,13 +52,30 @@ const deploy = {
     }
   },
   mapping: function(e, url) {
-    // console.log(e, url, 898)
-    if (e === 'izj') {
-      return forapi('izj', url)
+    if (config.remote.includes(e)) {
+      return forapi(e, url)
     } else {
       return forapi('', url)
     }
+  },
+  errorState(response) {
+    console.log(response)
+    // 如果http状态码正常，则直接返回数据
+    if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
+      return response
+      // 如果不需要除了data之外的数据，可以直接 return response.data
+    } else {
+      Message.warning(response.data.message)
+    }
+  },
+  successState(res) {
+    // 统一判断后端返回的错误码
+    if (res.data.code === 200) {
+      Message.warning(res.data.message)
+    } else if (res.data.code !== '000002' && res.data.code !== '000000') {
+      Message.warning('网络异常')
+    }
   }
-
 }
+
 export default deploy

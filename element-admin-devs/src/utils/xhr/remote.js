@@ -1,6 +1,8 @@
 export default {
   izj: {
-    'get@single': '/singlePoetry'
+    'post@singlePoetry': '/singlePoetry',
+    'get@recommendPoetry': '/recommendPoetry',
+    'get@searchMusic': '/searchMusic'
   }
 
 }
