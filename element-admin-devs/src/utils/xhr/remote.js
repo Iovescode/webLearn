@@ -1,8 +1,8 @@
 export default {
   izj: {
-    'post@singlePoetry': '/satinApi',
-    'get@recommendPoetry': '/satinApi',
-    'get@searchMusic': '/satinApi',
+    'post@singlePoetry': '/satinApis',
+    'get@recommendPoetry': '/satinApis',
+    'get@searchMusic': '/satinApis',
     'get@class_list': '/education/class/list'
   }
 }

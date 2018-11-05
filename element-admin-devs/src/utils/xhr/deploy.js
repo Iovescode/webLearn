@@ -11,29 +11,25 @@ let baseURL
     }
   })
 })()
+
 function forapi(e, url) {
-  if (e) {
-    for (const item in remote) {
-      if (e === item) {
-        for (const key in remote[item]) {
-          if (key === url) {
-            return {
-              method: key.match(/(\S*)@/)[1],
-              url: remote[item][key]
-            }
-          }
-        }
-      }
+  if (Object.keys(url)) {
+    return {
+      method: url.match(/(\S*)@/)[1],
+      url: remote[e][url]
     }
   } else {
-    for (const item in api) {
-      if (url === item) {
-        return {
-          method: item.match(/(\S*)@/)[1],
-          url: api[item]
-        }
-      }
+    console.log('api不存在')
+  }
+}
+function forapiCopy(e, url) {
+  if (url) {
+    return {
+      method: url.match(/(\S*)@/)[1],
+      url: api[url]
     }
+  } else {
+    console.log('api不存在223')
   }
 }
 const deploy = {
@@ -55,7 +51,7 @@ const deploy = {
     if (config.remote.includes(e)) {
       return forapi(e, url)
     } else {
-      return forapi('', url)
+      return forapiCopy('', url)
     }
   }
 }
