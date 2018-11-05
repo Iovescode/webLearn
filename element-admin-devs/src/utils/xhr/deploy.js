@@ -2,12 +2,12 @@
 import config from './config.js'
 import api from './api.js'
 import remote from './remote.js'
-import { Message } from 'element-ui'
+
 let baseURL
 (() => {
   config.hostName.map((item, index) => {
     if (window.location.hostname.includes(item.name)) {
-      baseURL = 'http://' + item.value
+      baseURL = item.value
     }
   })
 })()
@@ -56,24 +56,6 @@ const deploy = {
       return forapi(e, url)
     } else {
       return forapi('', url)
-    }
-  },
-  errorState(response) {
-    console.log(response)
-    // 如果http状态码正常，则直接返回数据
-    if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-      return response
-      // 如果不需要除了data之外的数据，可以直接 return response.data
-    } else {
-      Message.warning(response.data.message)
-    }
-  },
-  successState(res) {
-    // 统一判断后端返回的错误码
-    if (res.data.code === 200) {
-      Message.warning(res.data.message)
-    } else if (res.data.code !== '000002' && res.data.code !== '000000') {
-      Message.warning('网络异常')
     }
   }
 }
