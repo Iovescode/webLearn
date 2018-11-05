@@ -37,7 +37,7 @@ export default {
 
   methods: {
     sendTo() {
-      this.xhrs('get@searchMusic', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })
+      this.xhrs('get@class_list', { params: { 'type': '1', 'page': '1' }}).then((res) => { console.log(res) })
     },
     one() {
       this.xhrs('get@recommendPoetry', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then((res) => { console.log(res) })

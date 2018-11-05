@@ -15,7 +15,7 @@ module.exports = {
     ]
   },
   hostName: [
-    { name: 'localhost', value: 'api.apiopen.top', oldLmsHost: 'i.hfjy.com' },
+    { name: 'localhost', value: 'dev-api.hfjy.com/mock/108', oldLmsHost: 'i.hfjy.com' },
     { name: 'dev-', value: 'dev-izj.hfjy.com', oldLmsHost: 'dev-lms.hfjy.com' },
     { name: 'test-', value: 'i-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },
     { name: 'i-', value: 'i-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },
