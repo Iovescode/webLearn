@@ -1,7 +1,6 @@
-
-import config from './config.js'
-import api from './api.js'
-import remote from './remote.js'
+import config from '@/../config/config.js'
+import api from '@/../src/api/api.js'
+import remote from '@/../src/api/remote.js'
 
 let baseURL
 (() => {

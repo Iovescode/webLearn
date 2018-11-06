@@ -9,7 +9,7 @@ import i18n from './lang' // Internationalization
 import './icons' // icon
 import './errorLog'// error log
 import './permission' // permission control
-import http from './utils/request'
+import http from './xhr/xhr.js'
 import postMessages from './utils/postMessage'
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 import * as filters from './filters' // global filters
