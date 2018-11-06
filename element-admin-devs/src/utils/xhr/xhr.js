@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import deploy from './deploy.js'
 import { Message } from 'element-ui'
-
+import deleteEmptyProperty from './utils.js'
 let cancel
 const promiseArr = {}
 const CancelToken = axios.CancelToken
@@ -50,7 +50,7 @@ function successState(res, httpDefaultOpts) {
   }
 }
 const httpServer = (opts, data) => {
-  const parameters = deploy.deleteEmptyProperty(data.params, 'req')
+  const parameters = deleteEmptyProperty(data.params, 'req')
   const httpDefault = {
     cancelToken: new CancelToken(c => {
       cancel = c

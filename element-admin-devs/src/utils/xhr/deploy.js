@@ -2,7 +2,7 @@
 import config from './config.js'
 import api from './api.js'
 import remote from './remote.js'
-import deleteEmptyProperty from './utils.js'
+
 let baseURL
 (() => {
   config.hostName.map((item, index) => {
@@ -49,9 +49,6 @@ const deploy = {
     } else {
       return forapiCopy('', url)
     }
-  },
-  parameter: function(e) {
-    return deleteEmptyProperty(e, 'req')
   }
 }
 
