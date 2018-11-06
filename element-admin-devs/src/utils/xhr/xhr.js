@@ -2,6 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import deploy from './deploy.js'
 import { Message } from 'element-ui'
+import deleteEmptyProperty from './utils.js'
 let cancel
 const promiseArr = {}
 const CancelToken = axios.CancelToken
@@ -31,35 +32,32 @@ axios.interceptors.response.use(response => {
   return Promise.resolve(error.response)
 })
 function errorState(response) {
-  console.log(response)
   // 如果http状态码正常，则直接返回数据
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     return response
-    // 如果不需要除了data之外的数据，可以直接 return response.data
-  } else {
-    // Message.warning(response.data.msg)
   }
 }
-function successState(res) {
-  // 统一判断后端返回的错误码
+function successState(res, httpDefaultOpts) {
   if (res !== undefined) {
-    if (res.data.code === 200) {
-      Message.warning(res.data.msg)
+    if (res.data.code === '0x000000') {
+      Message.success(res.data.message)
     } else if (res.data.code !== '000002' && res.data.code !== '000000') {
       Message.warning('网络异常')
     }
   } else {
-    Message.warning('频繁掉借口')
+    Message.warning('操作太过频繁请稍后重试！')
+    throw new Error(`${httpDefaultOpts.url}接口,操作太过频繁请稍后重试！`)
   }
 }
 const httpServer = (opts, data) => {
+  const parameters = deleteEmptyProperty(data.params, 'req')
   const httpDefault = {
     cancelToken: new CancelToken(c => {
       cancel = c
     }),
     baseURL: '',
-    remote: 'api' && data.remote,
-    params: data.params,
+    remote: 'api' && parameters,
+    params: parameters,
     data: qs.stringify(data.params),
     headers: opts.method === 'get' ? deploy.opt.deployGet : deploy.opt.deployPost
   }
@@ -76,7 +74,7 @@ const httpServer = (opts, data) => {
   const promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
-        successState(res)
+        successState(res, httpDefaultOpts)
         resolve(res)
       }
     ).catch(

@@ -14,9 +14,8 @@ module.exports = {
       }
     ]
   },
-  // https://www.apiopen.top/satinApi?type=1&page=1
   hostName: [
-    { name: 'localhost', value: 'https://www.apiopen.top', oldLmsHost: 'i.hfjy.com' },
+    { name: 'localhost', value: 'http://dev-api.hfjy.com', oldLmsHost: 'i.hfjy.com' },
     { name: 'dev-', value: 'dev-izj.hfjy.com', oldLmsHost: 'dev-lms.hfjy.com' },
     { name: 'test-', value: 'i-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },
     { name: 'i-', value: 'i-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },

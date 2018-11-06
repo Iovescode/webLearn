@@ -19,17 +19,17 @@ function forapi(e, url) {
       url: remote[e][url]
     }
   } else {
-    console.log('api不存在')
+    throw new Error(`请把${url}放入romoteApi`)
   }
 }
 function forapiCopy(e, url) {
-  if (url) {
+  if (api[url]) {
     return {
       method: url.match(/(\S*)@/)[1],
       url: api[url]
     }
   } else {
-    console.log('api不存在223')
+    throw new Error(`请把${url}放入localApi`)
   }
 }
 const deploy = {
@@ -37,14 +37,10 @@ const deploy = {
     baseURL: '' || baseURL,
     timeout: 10000,
     deployGet: {
-      'X-Requested-With': 'XMLHttpRequestfffggcjyvyjtfvfytfvfty',
-      'Accept': '*/*',
-      'Content-Type': 'application/json; charset=UTF-8',
       'token': '99c29e21933e96fda1dd'
     },
     deployPost: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      'X-Requested-With': 'XMLHttpRequest'
     }
   },
   mapping: function(e, url) {
@@ -53,6 +49,9 @@ const deploy = {
     } else {
       return forapiCopy('', url)
     }
+  },
+  parameter: function(e) {
+    return
   }
 }
 
