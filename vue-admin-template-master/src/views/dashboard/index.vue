@@ -19,7 +19,7 @@
 
 <script>
   import ExpandTable from '@/components/ExpandTable'
-  import cityCascader from '@/components/cityCascader'
+  // import cityCascader from '@/components/cityCascader'
 
   export default {
     name: 'dashboard',
@@ -62,8 +62,8 @@
       }
     },
     components: {
-      ExpandTable,
-      cityCascader
+      ExpandTable
+      // cityCascader
     },
     created() {
 

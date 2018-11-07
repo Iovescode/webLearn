@@ -67,18 +67,6 @@ export const asyncRouterMap = [
     }
     ]
   },
-  {
-    path: '/iframe',
-    component: Layout,
-    hidden: false,
-    children: [{
-      path: 'iframe',
-      component: _import('iframe/index'),
-      name: 'iframe',
-      meta: { title: 'iframe', icon: 'form' }
-    }]
-  },
-  // router-auto不能删除
   { path: '*', redirect: '/404', hidden: true }
 ]
 // 组长角色的路由
