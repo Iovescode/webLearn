@@ -36,10 +36,10 @@ const deploy = {
     baseURL: '' || baseURL,
     timeout: 10000,
     deployGet: {
-      'token': '99c29e21933e96fda1dd'
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     deployPost: {
-      'X-Requested-With': 'XMLHttpRequest'
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
   },
   mapping: function(e, url) {

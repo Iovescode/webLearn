@@ -1,7 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
 import deploy from './deploy.js'
-
 import deleteEmptyProperty from './utils.js'
 let cancel
 const promiseArr = {}

@@ -85,7 +85,7 @@
     },
     methods: {
       getProvinceIds() {
-        return this.$http.get(this.urls[0]).then(res => {
+        return this.$http('get@teacher_getList', { params: { 'type': '1', 'page': '1' }}).then(res => {
           if (res.data) {
             this.options.provinceIds = res.data
           }
