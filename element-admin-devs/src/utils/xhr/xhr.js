@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import deploy from './deploy.js'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 import deleteEmptyProperty from './utils.js'
 let cancel
 const promiseArr = {}
@@ -31,24 +31,7 @@ axios.interceptors.response.use(response => {
 }, error => {
   return Promise.resolve(error.response)
 })
-function errorState(response) {
-  // 如果http状态码正常，则直接返回数据
-  if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-    return response
-  }
-}
-function successState(res, httpDefaultOpts) {
-  if (res !== undefined) {
-    if (res.data.code === '0x000000') {
-      Message.success(res.data.message)
-    } else if (res.data.code !== '000002' && res.data.code !== '000000') {
-      Message.warning('网络异常')
-    }
-  } else {
-    Message.warning('操作太过频繁请稍后重试！')
-    throw new Error(`${httpDefaultOpts.url}接口,操作太过频繁请稍后重试！`)
-  }
-}
+
 const httpServer = (opts, data) => {
   const parameters = deleteEmptyProperty(data.params, 'req')
   const httpDefault = {
@@ -74,12 +57,12 @@ const httpServer = (opts, data) => {
   const promise = new Promise(function(resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
-        successState(res, httpDefaultOpts)
+        deploy.successState(res, httpDefaultOpts)
         resolve(res)
       }
     ).catch(
       (response) => {
-        errorState(response)
+        deploy.errorState(response)
         reject(response)
       }
     )

@@ -1,8 +1,7 @@
-
 import config from './config.js'
 import api from './api.js'
 import remote from './remote.js'
-
+import { Message } from 'element-ui'
 let baseURL
 (() => {
   config.hostName.map((item, index) => {
@@ -48,6 +47,24 @@ const deploy = {
       return forapi(e, url)
     } else {
       return forapiCopy('', url)
+    }
+  },
+  errorState(response) {
+    // 如果http状态码正常，则直接返回数据
+    if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
+      return response
+    }
+  },
+  successState(res, httpDefaultOpts) {
+    if (res !== undefined) {
+      if (res.data.code === '0x000000') {
+        Message.success(res.data.message)
+      } else if (res.data.code !== '000002' && res.data.code !== '000000') {
+        Message.warning('网络异常')
+      }
+    } else {
+      Message.warning('操作太过频繁请稍后重试！')
+      throw new Error(`${httpDefaultOpts.url}接口,操作太过频繁请稍后重试！`)
     }
   }
 }
