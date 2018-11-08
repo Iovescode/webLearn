@@ -12,7 +12,7 @@ let baseURL
 })()
 
 function forapi(e, url) {
-  if (Object.keys(url)) {
+  if (remote[e][url]) {
     return {
       method: url.match(/(\S*)@/)[1],
       url: remote[e][url]

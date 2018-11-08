@@ -1,4 +1,4 @@
 export default {
-  'get@teacher_getList': '/mock/108/education/class/list'
+  'get@teacher_getLists': '/mock/108/education/class/list'
 }
 

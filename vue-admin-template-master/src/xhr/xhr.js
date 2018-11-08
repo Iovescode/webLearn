@@ -38,7 +38,7 @@ const httpServer = (opts, data) => {
       cancel = c
     }),
     baseURL: '',
-    remote: 'api' && parameters,
+    remote: 'api' && data.remote,
     params: parameters,
     data: qs.stringify(data.params),
     headers: opts.method === 'get' ? deploy.opt.deployGet : deploy.opt.deployPost
