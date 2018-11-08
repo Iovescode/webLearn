@@ -4,7 +4,7 @@
 
 
     <el-form inline>
-      <city-cascader :query="query" :keys="keys" :option-value-label="optionValueLabel" :urls="['student_getListProvince', 'student_getCity', 'student_getArea']"></city-cascader>
+      <!-- <city-cascader :query="query" :keys="keys" :option-value-label="optionValueLabel" :urls="['student_getListProvince', 'student_getCity', 'student_getArea']"></city-cascader> -->
     </el-form>
 
     <expand-table

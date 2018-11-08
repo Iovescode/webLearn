@@ -20,7 +20,7 @@ export default {
     getProvinceIds() {
       return this.$http('get@teacher_getList', { params: { 'type': '1', 'page': '1' }}).then(res => {
         if (res.data) {
-          this.options.provinceIds = res.data
+          // this.options.provinceIds = res.data
         }
       }).catch(console.log)
     }
