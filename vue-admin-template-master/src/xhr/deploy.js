@@ -3,13 +3,13 @@ import api from '@/../src/api/api.js'
 import remote from '@/../src/api/remote.js'
 import { Message } from 'element-ui'
 import store from '@/store'
-let baseURL
+// let baseURL
 
 function hostName(e) {
   config.hostName.map((item, index) => {
     if (window.location.hostname.includes(item.name)) {
-      console.log(baseURL)
-      baseURL = item.value.replace('izj', e)
+      // console.log(baseURL)
+      return item.value.replace('izj', e)
     }
   })
 }
@@ -39,7 +39,7 @@ function forapiCopy(e, url) {
 
 const deploy = {
   opt: {
-    baseURL: baseURL,
+    // baseURL: baseURL,
     timeout: 10000,
     deployGet: {
       'Content-Type': 'application/x-www-form-urlencoded',
