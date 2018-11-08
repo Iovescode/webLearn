@@ -32,19 +32,19 @@ function forapiCopy(e, url) {
     throw new Error(`请把${url}放入localApi`)
   }
 }
+
 const deploy = {
   opt: {
     baseURL: '' || baseURL,
     timeout: 10000,
     deployGet: {
       'Content-Type': 'application/x-www-form-urlencoded',
+      'Auth': '21231251',
       'Auth-x': store.getters.token
-    },
-    deployPost: {
-      'Content-Type': 'application/x-www-form-urlencoded'
     }
   },
   mapping: function(e, url) {
+    console.log(store.getters.token, 555)
     if (config.remote.includes(e)) {
       return forapi(e, url)
     } else {

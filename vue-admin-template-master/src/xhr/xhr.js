@@ -41,7 +41,7 @@ const httpServer = (opts, data) => {
     remote: 'api' && data.remote,
     params: parameters,
     data: qs.stringify(data.params),
-    headers: opts.method === 'get' ? deploy.opt.deployGet : deploy.opt.deployPost
+    headers: deploy.opt.deployGet
   }
   const httpDefaultOpts = Object.assign({}, httpDefault, deploy.opt)
   httpDefaultOpts.method = deploy.mapping(httpDefaultOpts.remote, opts).method
