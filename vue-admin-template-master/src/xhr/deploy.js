@@ -4,19 +4,22 @@ import remote from '@/../src/api/remote.js'
 import { Message } from 'element-ui'
 import store from '@/store'
 let baseURL
-(() => {
+
+function hostName(e) {
   config.hostName.map((item, index) => {
     if (window.location.hostname.includes(item.name)) {
-      baseURL = item.value
+      console.log(baseURL)
+      baseURL = item.value.replace('izj', e)
     }
   })
-})()
+}
 
 function forapi(e, url) {
-  if (remote[e][url]) {
+  if (remote[e] && remote[e][url]) {
     return {
       method: url.match(/(\S*)@/)[1],
-      url: remote[e][url]
+      url: remote[e][url],
+      baseURL: hostName(e)
     }
   } else {
     throw new Error(`请把${url}放入romoteApi`)
@@ -26,7 +29,8 @@ function forapiCopy(e, url) {
   if (api[url]) {
     return {
       method: url.match(/(\S*)@/)[1],
-      url: api[url]
+      url: api[url],
+      baseURL: hostName(e)
     }
   } else {
     throw new Error(`请把${url}放入localApi`)
@@ -35,7 +39,7 @@ function forapiCopy(e, url) {
 
 const deploy = {
   opt: {
-    baseURL: '' || baseURL,
+    baseURL: baseURL,
     timeout: 10000,
     deployGet: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -44,7 +48,6 @@ const deploy = {
     }
   },
   mapping: function(e, url) {
-    console.log(store.getters.token, 555)
     if (config.remote.includes(e)) {
       return forapi(e, url)
     } else {

@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     getProvinceIds() {
-      return this.$http('get@teacher_getLists', { params: { 'type': '1', 'page': '1' }, remote: 'izj' }).then(res => {
+      return this.$http('get@teacher_getLists', { params: { 'type': '1', 'page': '1' }, remote: 'ijx' }).then(res => {
         if (res.data) {
           // this.options.provinceIds = res.data
         }

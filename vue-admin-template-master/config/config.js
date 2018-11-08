@@ -14,10 +14,11 @@ module.exports = {
       }
     ]
   },
+
   hostName: [
-    { name: 'localhost', value: 'http://dev-api.hfjy.com', oldLmsHost: 'i.hfjy.com' },
+    { name: 'localhost', value: 'http://test-izj.hfjy.com', oldLmsHost: 'i.hfjy.com' },
     { name: 'dev-', value: 'dev-izj.hfjy.com', oldLmsHost: 'dev-lms.hfjy.com' },
-    { name: 'test-', value: 'i-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },
+    { name: 'test-', value: 'test-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },
     { name: 'i-', value: 'i-izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' },
     { name: 'offline-', value: 'offline-izj.hfjy.com', oldLmsHost: 'offline-lms.hfjy.com' },
     { name: 'izj.', value: 'izj.hfjy.com', oldLmsHost: 'i-lms.hfjy.com' }

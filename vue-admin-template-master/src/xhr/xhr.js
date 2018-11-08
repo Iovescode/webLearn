@@ -25,7 +25,7 @@ axios.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(response => {
+axios.interceptors.response.use(response => {    
   return response
 }, error => {
   return Promise.resolve(error.response)
@@ -37,16 +37,18 @@ const httpServer = (opts, data) => {
     cancelToken: new CancelToken(c => {
       cancel = c
     }),
-    baseURL: '',
+    baseURL: 'http://localhost:3001',
     remote: 'api' && data.remote,
     params: parameters,
     data: qs.stringify(data.params),
     headers: deploy.opt.deployGet
   }
-  const httpDefaultOpts = Object.assign({}, httpDefault, deploy.opt)
+  let httpDefaultOpts = Object.assign({}, httpDefault, deploy.opt)
   httpDefaultOpts.method = deploy.mapping(httpDefaultOpts.remote, opts).method
   httpDefaultOpts.url = deploy.mapping(httpDefaultOpts.remote, opts).url
-
+  httpDefaultOpts = Object.assign({}, httpDefaultOpts.url)
+  console.log(httpDefaultOpts)
+  httpDefaultOpts.baseURL = deploy.mapping(httpDefaultOpts.remote, opts).baseURL
   if (httpDefaultOpts.method === 'get') {
     delete httpDefaultOpts.data
   } else {
