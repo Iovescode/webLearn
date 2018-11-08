@@ -50,7 +50,6 @@ const deploy = {
     }
   },
   errorState(response) {
-    // 如果http状态码正常，则直接返回数据
     if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
       return response
     }
