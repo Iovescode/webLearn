@@ -2,6 +2,7 @@ import config from '@/../config/config.js'
 import api from '@/../src/api/api.js'
 import remote from '@/../src/api/remote.js'
 import { Message } from 'element-ui'
+import store from '@/store'
 let baseURL
 (() => {
   config.hostName.map((item, index) => {
@@ -36,7 +37,8 @@ const deploy = {
     baseURL: '' || baseURL,
     timeout: 10000,
     deployGet: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Auth-x': store.getters.token
     },
     deployPost: {
       'Content-Type': 'application/x-www-form-urlencoded'
