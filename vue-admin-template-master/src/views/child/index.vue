@@ -1,7 +1,6 @@
 <template>
   <!-- 命令行生成的模板 -->
   <div class="dashboard-container">
-    <div > 请查看network</div>
     <el-button @click="getProvinceIds">请查看network</el-button>
   </div>
 </template>
