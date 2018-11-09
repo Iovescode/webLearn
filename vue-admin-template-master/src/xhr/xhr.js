@@ -25,7 +25,7 @@ axios.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(response => {    
+axios.interceptors.response.use(response => {
   return response
 }, error => {
   return Promise.resolve(error.response)
@@ -37,18 +37,17 @@ const httpServer = (opts, data) => {
     cancelToken: new CancelToken(c => {
       cancel = c
     }),
-    baseURL: 'http://localhost:3001',
+    baseURL: 'http://www.baidu.com',
     remote: 'api' && data.remote,
     params: parameters,
     data: qs.stringify(data.params),
-    headers: deploy.opt.deployGet
+    headers: deploy.headers()
   }
-  let httpDefaultOpts = Object.assign({}, httpDefault, deploy.opt)
+  const httpDefaultOpts = Object.assign({}, httpDefault)
   httpDefaultOpts.method = deploy.mapping(httpDefaultOpts.remote, opts).method
   httpDefaultOpts.url = deploy.mapping(httpDefaultOpts.remote, opts).url
-  httpDefaultOpts = Object.assign({}, httpDefaultOpts.url)
-  console.log(httpDefaultOpts)
-  httpDefaultOpts.baseURL = deploy.mapping(httpDefaultOpts.remote, opts).baseURL
+  httpDefaultOpts.baseURL = deploy.baseURL(data.remote)
+  // httpDefaultOpts = Object.assign({}, httpDefaultOpts.url)
   if (httpDefaultOpts.method === 'get') {
     delete httpDefaultOpts.data
   } else {

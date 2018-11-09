@@ -3,13 +3,11 @@ import api from '@/../src/api/api.js'
 import remote from '@/../src/api/remote.js'
 import { Message } from 'element-ui'
 import store from '@/store'
-let baseURL
 
 function hostName(e) {
   config.hostName.map((item, index) => {
     if (window.location.hostname.includes(item.name)) {
-      console.log(baseURL)
-      baseURL = item.value.replace('izj', e)
+      return item.value.replace('izj', e)
     }
   })
 }
@@ -38,21 +36,27 @@ function forapiCopy(e, url) {
 }
 
 const deploy = {
-  opt: {
-    baseURL: baseURL,
-    timeout: 10000,
-    deployGet: {
+  headers() {
+    return {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Auth': '21231251',
       'Auth-x': store.getters.token
     }
   },
-  mapping: function(e, url) {
+  mapping(e, url) {
     if (config.remote.includes(e)) {
       return forapi(e, url)
     } else {
       return forapiCopy('', url)
     }
+  },
+  baseURL(e) {
+    // return hostName(e)
+    config.hostName.map((item, index) => {
+      if (window.location.hostname === item.name) {
+        return 'http://' + item.value
+      }
+    })
   },
   errorState(response) {
     if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
