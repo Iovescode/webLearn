@@ -6,7 +6,7 @@
           :rules="[
             { required: true, message: '请输入数字', trigger: 'blur' },
             { message: '请输入两位小数点的数字', pattern: /^\d+(\.\d{0,2})$/, trigger: 'blur' },
-            { type: 'number', message: '请输入数字范围', min: 0, max: 1000, trigger: 'blur' }]"
+            { type: 'number', message: '请输入数字范围', min: '0', max: '1000', trigger: 'blur' }]"
           label="age"
           prop="age">
           <el-input v-model.number="numberValidateForm.age" type="number" auto-complete="off"/>
