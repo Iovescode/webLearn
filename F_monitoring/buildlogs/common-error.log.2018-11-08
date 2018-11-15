@@ -1,0 +1,49 @@
+2018-11-08 22:31:03,010 ERROR 85793 [egg-mongoose] mongodb://127.0.0.1:27019/performance disconnected
+2018-11-08 22:31:03,012 ERROR 85793 nodejs.MongoNetworkError: [egg-mongoose]failed to connect to server [127.0.0.1:27019] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27019]
+    at Pool.<anonymous> (/Users/alien/Desktop/monitoring/zanePerfor/node_modules/mongodb-core/lib/topologies/server.js:564:11)
+    at emitOne (events.js:116:13)
+    at Pool.emit (events.js:211:7)
+    at Connection.<anonymous> (/Users/alien/Desktop/monitoring/zanePerfor/node_modules/mongodb-core/lib/connection/pool.js:317:12)
+    at Object.onceWrapper (events.js:317:30)
+    at emitTwo (events.js:126:13)
+    at Connection.emit (events.js:214:7)
+    at Socket.<anonymous> (/Users/alien/Desktop/monitoring/zanePerfor/node_modules/mongodb-core/lib/connection/connection.js:246:50)
+    at Object.onceWrapper (events.js:315:30)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+    at _combinedTickCallback (internal/process/next_tick.js:138:11)
+    at process._tickCallback (internal/process/next_tick.js:180:9)
+name: "MongoNetworkError"
+errorLabels: ["TransientTransactionError"]
+pid: 85793
+hostname: alienMacBook-Pro.local
+
+2018-11-08 22:31:03,016 ERROR 85793 [-/127.0.0.1/-/1ms GET /] nodejs.MongoNetworkError: [egg-mongoose]failed to connect to server [127.0.0.1:27019] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27019]
+    at Pool.<anonymous> (/Users/alien/Desktop/monitoring/zanePerfor/node_modules/mongodb-core/lib/topologies/server.js:564:11)
+    at emitOne (events.js:116:13)
+    at Pool.emit (events.js:211:7)
+    at Connection.<anonymous> (/Users/alien/Desktop/monitoring/zanePerfor/node_modules/mongodb-core/lib/connection/pool.js:317:12)
+    at Object.onceWrapper (events.js:317:30)
+    at emitTwo (events.js:126:13)
+    at Connection.emit (events.js:214:7)
+    at Socket.<anonymous> (/Users/alien/Desktop/monitoring/zanePerfor/node_modules/mongodb-core/lib/connection/connection.js:246:50)
+    at Object.onceWrapper (events.js:315:30)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+    at _combinedTickCallback (internal/process/next_tick.js:138:11)
+    at process._tickCallback (internal/process/next_tick.js:180:9)
+name: "MongoNetworkError"
+errorLabels: ["TransientTransactionError"]
+pid: 85793
+hostname: alienMacBook-Pro.local
+
+2018-11-08 22:48:03,854 ERROR 86073 [-/127.0.0.1/-/9ms POST /api/v1/system/add?_=1541688483834] nodejs.Error: 新增系统信息操作：系统已存在
+    at WebSystemService.saveSystemData (/Users/alien/Desktop/monitoring/zanePerfor/app/service/system.js:18:51)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+headers: {"Access-Control-Allow-Origin":"*"}
+pid: 86073
+hostname: alienMacBook-Pro.local
+

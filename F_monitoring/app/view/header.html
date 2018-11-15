@@ -1,0 +1,117 @@
+<div class="com_header" id="com_header">
+	<a href="/"><div class="logo">
+		<img src="/public/img/logo.png" alt="logo">
+		<div class="title">前端性能监控系统</div>
+	</div></a>
+	<div class="right">
+		<div class="item">{{userMsg.user_name}}</div>
+		<a href="/systems" v-if="userMsg.level==0?true:false">
+			<div class="item">系统管理</div>
+		</a>
+		<a href="/errors" v-if="userMsg.level==0?true:false">
+			<div class="item">重启信息</div>
+		</a>
+		<a href="/users" v-if="userMsg.level==0?true:false">
+			<div class="item">用户管理</div>
+		</a>
+		<a href="/"><div class="item">我的应用</div></a>
+		<div class="item" @click="logout">退出登录</div>
+	</div>
+</div>
+<style scoped>
+	.com_header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 20px;
+		position: fixed;
+		left:0;
+		top:0;
+		width: 100%;
+		height: 60px;
+		background: #fff;
+		border-bottom:solid 1px #f1f1f1;
+		font-weight:300;
+		z-index:1000;
+	}
+	.com_header .logo {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		font-size: 28px;
+	}
+	.com_header .logo .title{
+		color:#333;
+	}
+	.com_header .logo img {
+		height: 35px;
+		margin-right: 10px;
+	}
+	.com_header .right {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		font-size: 16px;
+	}
+	.com_header .right .item {
+		height:60px;
+		line-height:60px;
+		padding:0 15px;
+		cursor:pointer;
+		position: relative;
+		color:#333;
+	}
+	.com_header .right .item:after{
+		content:'';
+		display: block;
+		position: absolute;
+		left:0;
+		bottom:0;
+		width:100%;
+		height:2px;
+		background:#A79AFE;
+		display:none;
+	}
+	.com_header .right .item:hover{
+		background:#f1f1f1;
+		color:#A79AFE;
+	}
+	.com_header .right .item:hover:after{
+		display: block;
+	}
+</style>
+<script>
+	new Vue({
+		el: '#com_header',
+		data: function () {
+			return {
+				userMsg: {
+					user_name:'游小白',
+					level:1,
+				},
+			}
+		},
+		mounted() {
+			const userMsg = util.getStorage('local','userMsg');
+			this.userMsg = userMsg ? JSON.parse(userMsg) : {};	
+		},
+		methods: {
+			addsystem() {
+				location.href = `/selectype`
+			},
+			logout(){
+				popup.confirm({title:'确定退出登录吗？',yes(){
+					util.ajax({
+						type:'get',
+						url:`${config.baseApi}api/v1/user/logout`,
+						success:data=>{
+							util.setStorage('local','userMsg','');
+							location.href = `/login`
+						}
+					})
+				}})
+			}
+		},
+	})
+</script>
