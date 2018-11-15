@@ -3,10 +3,18 @@ import api from '@/../src/api/api.js'
 import remote from '@/../src/api/remote.js'
 import { Message } from 'element-ui'
 import store from '@/store'
+<<<<<<< HEAD
+=======
+// let baseURL
+>>>>>>> 45bc4cd2f4e88e0ef79162888b86221e6788f31c
 
 function hostName(e) {
   config.hostName.map((item, index) => {
     if (window.location.hostname.includes(item.name)) {
+<<<<<<< HEAD
+=======
+      // console.log(baseURL)
+>>>>>>> 45bc4cd2f4e88e0ef79162888b86221e6788f31c
       return item.value.replace('izj', e)
     }
   })
@@ -36,8 +44,15 @@ function forapiCopy(e, url) {
 }
 
 const deploy = {
+<<<<<<< HEAD
   headers() {
     return {
+=======
+  opt: {
+    // baseURL: baseURL,
+    timeout: 10000,
+    deployGet: {
+>>>>>>> 45bc4cd2f4e88e0ef79162888b86221e6788f31c
       'Content-Type': 'application/x-www-form-urlencoded',
       'Auth': '21231251',
       'Auth-x': store.getters.token
