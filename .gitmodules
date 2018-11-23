@@ -1,0 +1,3 @@
+[submodule "website/website/sun-client-demo"]
+	path = website/website/sun-client-demo
+	url = https://github.com/BlameDeng/sun-client-demo.git
