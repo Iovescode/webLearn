@@ -79,6 +79,10 @@ export default {
         const ele = document.querySelectorAll('.selectName')[0].children[0].children[0]
         ele.style.height = '56px'
         ele.style.overflow = 'hidden'
+      } else {
+        const ele = document.querySelectorAll('.selectName')[0].children[0].children[0]
+        ele.style.height = ''
+        ele.style.overflow = ''
       }
     }
   },
