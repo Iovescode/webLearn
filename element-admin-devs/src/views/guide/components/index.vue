@@ -33,21 +33,21 @@
 const inputLimit = function(e) {
   const num = e.target.value || ''
   const code = e.which || e.keyCode
-  const str = (e.key && e.key != 'Unidentified') ? e.key : num.substr(num.length - 1)
+  const str = (e.key && e.key !== 'Unidentified') ? e.key : num.substr(num.length - 1)
   console.log('|type:' + e.type + '|code:' + code + '|str:' + str + '|value:' + num)
   // 无论任何情况，皆可执行
-  if (code == '8') {
+  if (code === '8') {
     return true
   }
   // 没有满足任何一种情况，中断执行
-  if (!(/[\d.]/.test(str) || code == '190')) {
+  if (!(/[\d.]/.test(str) || code === '190')) {
     e.returnValue = false
     return false
   }
   if (num.length > 12 ||
-			(num.indexOf('.') >= 0 && code == '190') ||
-			((num.indexOf('.') == num.length - 3) && num.length > 3) ||
-			(num.length == 0 && code == '190')) {
+			(num.indexOf('.') >= 0 && code === '190') ||
+			((num.indexOf('.') === num.length - 3) && num.length > 3) ||
+			(num.length === 0 && code === '190')) {
     e.returnValue = false
     return false
   }
