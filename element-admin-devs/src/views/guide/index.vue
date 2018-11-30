@@ -1,23 +1,30 @@
 <template>
   <div class="app-container">
-    kkkk
+    <Dialog v-if="dialogDemo.show" :show.sync="dialogDemo.show"/>
+    <el-button type="" @click="PopDelog"> open Deloag</el-button>
   </div>
 </template>
 
 <script>
+import Dialog from './components/index.vue'
 export default {
   name: 'Guide',
+  components: {
+    Dialog
+  },
   data() {
     return {
-      driver: null
+      dialogDemo: {
+        show: false
+      }
     }
   },
   mounted() {
 
   },
   methods: {
-    guide() {
-
+    PopDelog() {
+      this.dialogDemo.show = true
     }
   }
 }
