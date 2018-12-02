@@ -14,7 +14,7 @@
           label="年龄"
           prop="age"
         >
-          <el-input v-model.number="numberValidateForm.age" size="mini" controls-position="right" @keydown.native="inputLimit" />
+          <el-input v-model.number="numberValidateForm.age" controls-position="right" onkeyup="this.value=this.value.toString().match(/^\d+(?:\.\d{0,2})?/)" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('numberValidateForm')">提交</el-button>
@@ -99,6 +99,7 @@ export default {
       })
     },
     resetForm(formName) {
+      this.$refs[formName].resetFields()
       this.$refs[formName].resetFields()
     },
     proving1() {
